@@ -1,2 +1,2 @@
 # Lab6 Chat IA
-
+Este es el repositorio que contiene el codigo fuente de mi Laboratorio 6 en el cual implemento website sencillo el cual se conecta a un LLM a traves de un API de Gemini para generar texto y que le podamos hacer preguntas.
