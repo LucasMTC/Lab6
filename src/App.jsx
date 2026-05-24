@@ -6,7 +6,8 @@ function App() {
 
   return (
     <>
-      <h1>{geminiApiKey}</h1>
+      <h1>Lucas's Chatbot</h1>
+      
     </>
   )
 }
