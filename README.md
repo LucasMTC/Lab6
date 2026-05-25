@@ -1,5 +1,7 @@
 # Lab6 Chat IA
 
+![Chatbot Screenshot](./images/chatbot.png)
+
 Este es el repositorio que contiene el código fuente de mi Laboratorio 6, en el cual implemento una página web sencilla que se conecta a un LLM a través de la API de Gemini para generar texto y permitir al usuario hacer preguntas.
 
 Al iniciar este proyecto quería utilizar un kit de desarrollo web que ya habíamos utilizado en clase, por lo que decidí escoger Vite. Los primeros commits del repositorio fueron utilizados para eliminar boilerplate code que no necesitaba, ya que quería que la página tuviera un diseño lo más minimalista posible.
