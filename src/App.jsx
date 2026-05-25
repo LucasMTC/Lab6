@@ -7,8 +7,9 @@ function App() {
   const chatRef = useRef(ai.chats.create({model: "gemini-2.5-flash"}))
   
   const [text, setText] = useState("")
+  const [messages, setMessages] = useState([])
+
   const textareaRef = useRef(null)
-  const textarea = document.getElementById("prompt")
 
   const handleChange = (e) => {
     setText(e.target.value)
@@ -17,25 +18,78 @@ function App() {
     textareaRef.current.scrollHeight + "px"
   }
 
-  async function sumbitRequest() {
-    const response = await chatRef.current.sendMessage({ message: textarea.value })
-    console.log(response.text);
+  async function submitRequest() {
+    if (!text.trim()) return
+
+    const userMessage = {
+      role: "user",
+      text: text
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+
+    const response = await chatRef.current.sendMessage({
+      message: text
+    })
+
+    const aiMessage = {
+      role: "ai",
+      text: response.text
+    }
+
+    setMessages((prev) => [...prev, aiMessage])
+
     setText("")
+
     textareaRef.current.style.height = "auto"
   }
 
   return (
     <div id='main-page'>
-      <h1 className='Titulo'>Lucas's Chatbot</h1>
-      <span></span>
-      <h4 className='Titulo'>En que te puedo ayudar el dia de hoy?</h4>
-      <textarea id='prompt'
-        ref={textareaRef}
-        value={text}
-        onChange={handleChange}
-      >
-      </textarea>
-      <button onClick={sumbitRequest}>Send Message</button>
+
+      <h1 className='Titulo'>
+        Lucas's Chatbot
+      </h1>
+
+      <div className='chat-container'>
+
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={
+              message.role === "user"
+                ? "message-row user-row"
+                : "message-row ai-row"
+            }
+          >
+            <div
+              className={
+                message.role === "user"
+                  ? "message-bubble user-bubble"
+                  : "message-bubble ai-bubble"
+              }
+            >
+              {message.text}
+            </div>
+          </div>
+        ))}
+
+      </div>
+
+      <div className='input-area'>
+        <textarea
+          id='prompt'
+          ref={textareaRef}
+          value={text}
+          onChange={handleChange}
+          placeholder='Escribe tu mensaje'
+        />
+
+        <button onClick={submitRequest}>
+          Enviar
+        </button>
+      </div>
+
     </div>
   )
 }
